@@ -2,15 +2,25 @@ defmodule PlugTeapotTest do
   use ExUnit.Case, async: true
   use Plug.Test
 
-  defp call(conn, opts) do
-    PlugTeapot.call(conn, PlugTeapot.init(opts))
+  defmodule TestRouter do
+    use Plug.Router
+    plug(:match)
+    plug(:dispatch)
+    use PlugTeapot
+
+    match _ do
+      send_resp(conn, 200, "OK")
+    end
   end
+
+  @opts TestRouter.init([])
 
   defp teapot(path) do
     conn =
       :get
       |> conn(path)
-      |> call([])
+
+    conn = TestRouter.call(conn, @opts)
 
     assert conn.status == 418, path
     assert conn.resp_body == "I am a teapot"
