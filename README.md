@@ -5,13 +5,23 @@ Share some tea with friends when they ask for the most ridiculous of paths.
 ## Installation
 
 If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `teapot` to your list of dependencies in `mix.exs`:
+by adding `plug_teapot` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
   [
-    {:teapot, "~> 0.1.0"}
+    {:plug_teapot, "~> 0.1.0"}
   ]
+end
+```
+
+Add it to your `Plug` pipeline:
+
+```elixir
+defmodule MyApp do
+  use Plug.Builder
+
+  use PlugTeapot
 end
 ```
 
