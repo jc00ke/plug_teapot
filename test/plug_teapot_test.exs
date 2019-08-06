@@ -1,7 +1,6 @@
 defmodule PlugTeapotTest do
   use ExUnit.Case, async: true
   use Plug.Test
-  doctest PlugTeapot
 
   defp call(conn, opts) do
     PlugTeapot.call(conn, PlugTeapot.init(opts))
